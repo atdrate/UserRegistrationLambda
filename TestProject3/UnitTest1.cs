@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using UserRegistrationEx;
 
 namespace TestProject3
@@ -5,10 +6,11 @@ namespace TestProject3
     [TestClass]
     public class UnitTest1
     {
+
         [TestMethod]
         public void TestMethod1()
         {
-             void GivenUserFistName_WhenValidate_ShouldReturnTrue()
+          static  void GivenUserFistName_WhenValidate_ShouldReturnTrue()
             {
                 //Arrange
                 ValidUser user = new ValidUser();
@@ -119,6 +121,26 @@ namespace TestProject3
             bool result = user.ValidatePassword(password);
             //Assert
             Assert.IsFalse(result);
+
+         [TestMethod]
+            [DataRow("abc@yahoo.com")]
+            [DataRow("abc-100@yahoo.com")]
+            [DataRow("abc.100@yahoo.com")]
+            [DataRow("abc111@abc.com")]
+            [DataRow("abc.100@abc.com.au")]
+            [DataRow("abc-100@abc.net")]
+            [DataRow("abc@1.com")]
+            [DataRow("abc@gmail.com.com")]
+            [DataRow("abc+100@gmail.com")]
+            static void GivenEmailIds_WhenValidate_ShouldReturnTrue(string email)
+            {
+                //Arrange
+                ValidUser user = new ValidUser();
+                //Act
+                bool result = user.ValidateEmail2(email);
+                //Assert
+                Assert.IsTrue(result);
+            }
         }
     }
 }
